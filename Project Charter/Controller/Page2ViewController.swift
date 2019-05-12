@@ -12,13 +12,9 @@ import UIKit
 
 class Page2ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     var scrollView: UIScrollView!
-    var keyArray = [String]()
-    var textArray1 = [UITextView]()
-    var valArray = [String]()
-    var textArray2 = [UITextView]()
     var latestY :NSLayoutConstraint!
     var customTable: CustomTableView!
-    
+    var myTable: Table!
     
     
     override func viewDidLoad() {
@@ -27,7 +23,7 @@ class Page2ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         updateArrays()
         //        updateViews()
         
-        customTable = CustomTableView(withKeys: keyArray, withVals: valArray)
+        customTable = CustomTableView(withTable: myTable)
         customTable.translatesAutoresizingMaskIntoConstraints = false
         customTable.backgroundColor = .clear
         customTable.delegate = self
@@ -59,14 +55,10 @@ class Page2ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     }
     
     func updateArrays(){
-        keyArray.append("Project Manager")
-        valArray.append("")
-        keyArray.append("Business Sponsor?")
-        valArray.append("")
-        keyArray.append("Approval Date")
-        valArray.append("")
-        keyArray.append("Project Number")
-        valArray.append("")
+        myTable = Table()
+        myTable.setArray(withIndex: 0, withArray: ["Project Manager", "Business Sponsor", "Approval Date", "Project Number"])
+        myTable.setArray(withIndex: 1, withArray: ["", "", "", ""])
+        myTable.count = 2
     }
     
     func configureScrollView()

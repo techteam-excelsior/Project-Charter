@@ -8,16 +8,24 @@
 
 import UIKit
 
+class VerticallyCenteredTextView: UITextView {
+    override var contentSize: CGSize {
+        didSet {
+            print("Changed content size of text view")
+            var topCorrection = (bounds.size.height - contentSize.height * zoomScale) / 2.0
+            topCorrection = max(0, topCorrection)
+            contentInset = UIEdgeInsets(top: topCorrection, left: 0, bottom: 0, right: 0)
+        }
+    }
+}
+
+
 class CustomTableView: UIView {
 
-    private var keyArray = [String]()
-    private var textArray1 = [UITextView]()
-    private var valArray = [String]()
-    private var textArray2 = [UITextView]()
-    private var valArray2 = [String]()
-    private var textArray3 = [UITextView]()
-    private var columnCount = 0
-    
+    private var textArray1 = [VerticallyCenteredTextView]()
+    private var textArray2 = [VerticallyCenteredTextView]()
+    private var textArray3 = [VerticallyCenteredTextView]()
+    private var myTable: Table!
     
     private var latestY: NSLayoutConstraint?
     var addMore : UIButton = {
@@ -29,6 +37,8 @@ class CustomTableView: UIView {
     
     var delegate: homeDelegate!
     
+    
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -37,12 +47,9 @@ class CustomTableView: UIView {
     }
     */
     
-    convenience init(withKeys keys: [String], withVals vals: [String], withVals2 vals2: [String] = [], columnCount columns: Int = 2){
+    convenience init(withTable table: Table){
         self.init()
-        keyArray = keys
-        valArray = vals
-        valArray2 = vals2
-        columnCount = columns
+        myTable = table
     }
     
     
@@ -58,44 +65,58 @@ class CustomTableView: UIView {
 
     
     @objc func addRow(_ sender: UIButton){
-        print("cliked add more  ", keyArray.count)
-        keyArray.append("")
-        valArray.append("")
-        print(keyArray.count)
+        var text1 = myTable.getArray(withIndex: 0)
+        var text2 = myTable.getArray(withIndex: 1)
+        var text3 = myTable.getArray(withIndex: 2)
+        if (text1 == nil || text2 == nil || text3 == nil)
+        {
+            print("Could not fetch table data")
+            return
+        }
+        text1?.append("")
+        text2?.append("")
+        myTable.setArray(withIndex: 0, withArray: text1!)
+        myTable.setArray(withIndex: 1, withArray: text2!)
+        if myTable.count == 3{
+            text3?.append("")
+            myTable.setArray(withIndex: 2, withArray: text3!)
+        }
         updateViews()
     }
     
     func updateViews(){
-        if keyArray.count == textArray1.count{
+        if myTable.getArray(withIndex: 0)?.count == textArray1.count{
             print("No increase in rows")
             return
         }
         
-        if columnCount == 2{
+        if myTable.count == 2{
             if textArray1.count == 0{
-                let text1 = UITextView()
+                let text1 = VerticallyCenteredTextView()
                 text1.translatesAutoresizingMaskIntoConstraints = false
-                text1.text = keyArray[0]
+                text1.text = myTable.getArray(withIndex: 0)![0]
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text1.layer.cornerRadius = 10
                 text1.font = .systemFont(ofSize: 18)
-                text1.isScrollEnabled = false
+//                text1.isScrollEnabled = false
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text1.layer.borderWidth = 2
                 text1.textContainer.maximumNumberOfLines = 3
+                text1.textContainer.lineBreakMode = .byTruncatingTail
                 textArray1.append(text1)
                 self.addSubview(text1)
                 
-                let text2 = UITextView()
+                let text2 = VerticallyCenteredTextView()
                 text2.translatesAutoresizingMaskIntoConstraints = false
-                text2.text = valArray[0]
+                text2.text = myTable.getArray(withIndex: 1)![0]
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text2.layer.cornerRadius = 10
                 text2.font = .systemFont(ofSize: 18)
-                text2.isScrollEnabled = false
+//                text2.isScrollEnabled = false
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text2.layer.borderWidth = 2
                 text2.textContainer.maximumNumberOfLines = 3
+                text2.textContainer.lineBreakMode = .byTruncatingTail
                 textArray2.append(text2)
                 self.addSubview(text2)
                 
@@ -109,35 +130,37 @@ class CustomTableView: UIView {
                 text2.widthAnchor.constraint(equalTo: text1.widthAnchor, constant: -10).isActive = true
                 text2.heightAnchor.constraint(equalToConstant: 90).isActive = true
             }
-            let diff = keyArray.count - textArray1.count
+            let diff = myTable.getArray(withIndex: 0)!.count - textArray1.count
             if diff == 0{
                 return
             }
             let base = textArray1.count
             for i in 0..<diff{
-                let text1 = UITextView()
+                let text1 = VerticallyCenteredTextView()
                 text1.translatesAutoresizingMaskIntoConstraints = false
-                text1.text = keyArray[base+i]
+                text1.text = myTable.getArray(withIndex: 0)![base+i]
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text1.layer.cornerRadius = 10
                 text1.font = .systemFont(ofSize: 18)
-                text1.isScrollEnabled = false
+//                text1.isScrollEnabled = false
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text1.layer.borderWidth = 2
                 text1.textContainer.maximumNumberOfLines = 3
+                text1.textContainer.lineBreakMode = .byTruncatingTail
                 textArray1.append(text1)
                 self.addSubview(text1)
                 
-                let text2 = UITextView()
+                let text2 = VerticallyCenteredTextView()
                 text2.translatesAutoresizingMaskIntoConstraints = false
-                text2.text = valArray[base+i]
+                text2.text = myTable.getArray(withIndex: 1)![base+i]
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text2.layer.cornerRadius = 10
                 text2.font = .systemFont(ofSize: 18)
-                text2.isScrollEnabled = false
+//                text2.isScrollEnabled = false
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text2.layer.borderWidth = 2
-                text1.textContainer.maximumNumberOfLines = 3
+                text2.textContainer.maximumNumberOfLines = 3
+                text2.textContainer.lineBreakMode = .byTruncatingTail
                 textArray2.append(text2)
                 self.addSubview(text2)
                 
@@ -154,42 +177,45 @@ class CustomTableView: UIView {
         }
         else{
             if textArray1.count == 0{
-                let text1 = UITextView()
+                let text1 = VerticallyCenteredTextView()
                 text1.translatesAutoresizingMaskIntoConstraints = false
-                text1.text = keyArray[0]
+                text1.text = myTable.getArray(withIndex: 0)![0]
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text1.layer.cornerRadius = 10
                 text1.font = .systemFont(ofSize: 18)
-                text1.isScrollEnabled = false
+//                text1.isScrollEnabled = false
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text1.layer.borderWidth = 2
                 text1.textContainer.maximumNumberOfLines = 3
+                text1.textContainer.lineBreakMode = .byTruncatingTail
                 textArray1.append(text1)
                 self.addSubview(text1)
                 
-                let text2 = UITextView()
+                let text2 = VerticallyCenteredTextView()
                 text2.translatesAutoresizingMaskIntoConstraints = false
-                text2.text = valArray[0]
+                text2.text = myTable.getArray(withIndex: 1)![0]
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text2.layer.cornerRadius = 10
                 text2.font = .systemFont(ofSize: 18)
-                text2.isScrollEnabled = false
+//                text2.isScrollEnabled = false
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text2.layer.borderWidth = 2
                 text2.textContainer.maximumNumberOfLines = 3
+                text2.textContainer.lineBreakMode = .byTruncatingTail
                 textArray2.append(text2)
                 self.addSubview(text2)
                 
-                let text3 = UITextView()
+                let text3 = VerticallyCenteredTextView()
                 text3.translatesAutoresizingMaskIntoConstraints = false
-                text3.text = valArray[0]
+                text3.text = myTable.getArray(withIndex: 2)![0]
                 text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text3.layer.cornerRadius = 10
                 text3.font = .systemFont(ofSize: 18)
-                text3.isScrollEnabled = false
+//                text3.isScrollEnabled = false
                 text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 text3.layer.borderWidth = 2
                 text3.textContainer.maximumNumberOfLines = 3
+                text3.textContainer.lineBreakMode = .byTruncatingTail
                 textArray2.append(text3)
                 self.addSubview(text3)
                 
@@ -208,47 +234,50 @@ class CustomTableView: UIView {
                 text3.widthAnchor.constraint(equalTo: text2.widthAnchor, constant: -10).isActive = true
                 text3.heightAnchor.constraint(equalToConstant: 90).isActive = true
             }
-            let diff = keyArray.count - textArray1.count
+            let diff = myTable.getArray(withIndex: 0)!.count - textArray1.count
             if diff != 0{
             
                 let base = textArray1.count
                 for i in 0..<diff{
-                    let text1 = UITextView()
+                    let text1 = VerticallyCenteredTextView()
                     text1.translatesAutoresizingMaskIntoConstraints = false
-                    text1.text = keyArray[base+i]
+                    text1.text = myTable.getArray(withIndex: 0)![base+i]
                     text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     text1.layer.cornerRadius = 10
                     text1.font = .systemFont(ofSize: 18)
-                    text1.isScrollEnabled = false
+//                    text1.isScrollEnabled = false
                     text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     text1.layer.borderWidth = 2
                     text1.textContainer.maximumNumberOfLines = 3
+                    text1.textContainer.lineBreakMode = .byTruncatingTail
                     textArray1.append(text1)
                     self.addSubview(text1)
                     
-                    let text2 = UITextView()
+                    let text2 = VerticallyCenteredTextView()
                     text2.translatesAutoresizingMaskIntoConstraints = false
-                    text2.text = valArray[base+i]
+                    text2.text = myTable.getArray(withIndex: 1)![base+i]
                     text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     text2.layer.cornerRadius = 10
                     text2.font = .systemFont(ofSize: 18)
-                    text2.isScrollEnabled = false
+//                    text2.isScrollEnabled = false
                     text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     text2.layer.borderWidth = 2
                     text2.textContainer.maximumNumberOfLines = 3
+                    text2.textContainer.lineBreakMode = .byTruncatingTail
                     textArray2.append(text2)
                     self.addSubview(text2)
                     
-                    let text3 = UITextView()
+                    let text3 = VerticallyCenteredTextView()
                     text3.translatesAutoresizingMaskIntoConstraints = false
-                    text3.text = valArray[base+i]
+                    text3.text = myTable.getArray(withIndex: 2)![base+i]
                     text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     text3.layer.cornerRadius = 10
                     text3.font = .systemFont(ofSize: 18)
-                    text3.isScrollEnabled = false
+//                    text3.isScrollEnabled = false
                     text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                     text3.layer.borderWidth = 2
                     text3.textContainer.maximumNumberOfLines = 3
+                    text3.textContainer.lineBreakMode = .byTruncatingTail
                     textArray2.append(text3)
                     self.addSubview(text3)
                     
@@ -283,3 +312,6 @@ class CustomTableView: UIView {
         //        mainView.bottomAnchor.constraint(equalTo: textArray1.last!.bottomAnchor, constant: 50).isActive = false
     }
 }
+
+
+

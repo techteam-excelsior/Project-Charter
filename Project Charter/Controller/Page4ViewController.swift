@@ -12,14 +12,9 @@ import UIKit
 
 class Page4ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     var scrollView: UIScrollView!
-    var keyArray = [String]()
-    var textArray1 = [UITextView]()
-    var valArray = [String]()
-    var textArray2 = [UITextView]()
-    var valArray2 = [String]()
     var latestY :NSLayoutConstraint!
     var customTable: CustomTableView!
-    
+    var myTable: Table!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +22,7 @@ class Page4ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         updateArrays()
         //        updateViews()
         
-        customTable = CustomTableView(withKeys: keyArray, withVals: valArray, withVals2: valArray, columnCount: 3)
+        customTable = CustomTableView(withTable: myTable)
         customTable.translatesAutoresizingMaskIntoConstraints = false
         customTable.backgroundColor = .clear
         customTable.delegate = self
@@ -59,12 +54,11 @@ class Page4ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     }
     
     func updateArrays(){
-        keyArray.append("Rxpenses Incremental to Operating Buf")
-        valArray.append("")
-        keyArray.append("Capital")
-        valArray.append("")
-        keyArray.append("Other")
-        valArray.append("")
+        myTable = Table()
+        myTable.setArray(withIndex: 0, withArray: ["Expenses Incremental to Operating Budget", "Capital", "Other"])
+        myTable.setArray(withIndex: 1, withArray: ["", "", ""])
+        myTable.setArray(withIndex: 2, withArray: ["", "", ""])
+        myTable.count = 3
 
     }
     

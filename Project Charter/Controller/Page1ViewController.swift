@@ -12,21 +12,19 @@ import UIKit
 
 class Page1ViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate {
     var scrollView: UIScrollView!
-    var keyArray = [String]()
-    var textArray1 = [UITextView]()
-    var valArray = [String]()
-    var textArray2 = [UITextView]()
     var latestY :NSLayoutConstraint!
     var customTable: CustomTableView!
+    var myTable: Table!
     
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureScrollView()
         updateArrays()
         //        updateViews()
         
-        customTable = CustomTableView(withKeys: keyArray, withVals: valArray)
+        customTable = CustomTableView(withTable: myTable)
         customTable.translatesAutoresizingMaskIntoConstraints = false
         customTable.backgroundColor = .clear
         customTable.delegate = self
@@ -40,38 +38,33 @@ class Page1ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
-//    override func viewDidLayoutSubviews() {
-//        customTable.layoutIfNeeded()
-//        print("Page view did layout ", customTable.bounds.size)
-//        resizeScrollView()
+    override func viewDidLayoutSubviews() {
+        customTable.layoutIfNeeded()
+        print("Page view did layout ", customTable.bounds.size)
+        resizeScrollView()
+    }
+    
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        let oldSize = scrollView.contentSize
+//        scrollView.contentSize = CGSize(width: size.width, height: oldSize.height)
 //    }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        customTable.layoutIfNeeded()
-        print("Page view did appear ", customTable.bounds.size)
-//        resizeScrollView()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        customTable.layoutIfNeeded()
+//        print("Page view did appear ", customTable.bounds.size)
+////        resizeScrollView()
+//    }
 
     override func viewDidDisappear(_ animated: Bool) {
         print("View Disappered")
     }
     
     func updateArrays(){
-        keyArray.append("What is the current Senario?")
-        valArray.append("")
-        keyArray.append("What is wrong with the current Senario?")
-        valArray.append("")
-        keyArray.append("Numbers associated with the problem (failure rate, cost, ...)")
-        valArray.append("")
-        keyArray.append("Where do you want to get?")
-        valArray.append("")
-        keyArray.append("What is the gap")
-        valArray.append("")
-        keyArray.append("Process Gap")
-        valArray.append("")
-        keyArray.append("Financial Gap")
-        valArray.append("")
+        myTable = Table()
+        myTable.setArray(withIndex: 0, withArray: ["What is the current Senario?", "What is wrong with the current Senario?", "Numbers associated with the problem (failure rate, cost, ...)", "Where do you want to get?", "What is the gap", "Process Gap", "Financial Gap"])
+        myTable.setArray(withIndex: 1, withArray: ["", "", "", "", "", "", "",])
+        myTable.count = 2
     }
     
     func configureScrollView()

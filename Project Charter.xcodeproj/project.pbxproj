@@ -33,6 +33,8 @@
 		5960009B228283F800E8282E /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5960009A228283F800E8282E /* ProductCell.swift */; };
 		5960009D2282868500E8282E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5960009C2282868500E8282E /* Extension.swift */; };
 		5960009F228286FE00E8282E /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5960009E228286FE00E8282E /* Product.swift */; };
+		5968CD9C2288BDBB00915BFF /* CharterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5968CD9B2288BDBB00915BFF /* CharterViewController.swift */; };
+		5968CD9E2288BFC400915BFF /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5968CD9D2288BFC400915BFF /* TableModel.swift */; };
 		599972342287A9A900365857 /* Page1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599972332287A9A900365857 /* Page1ViewController.swift */; };
 		599972362287B6EF00365857 /* Page2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599972352287B6EF00365857 /* Page2ViewController.swift */; };
 		599972382287BA4800365857 /* Page3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599972372287BA4800365857 /* Page3ViewController.swift */; };
@@ -74,6 +76,8 @@
 		5960009A228283F800E8282E /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		5960009C2282868500E8282E /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		5960009E228286FE00E8282E /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		5968CD9B2288BDBB00915BFF /* CharterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharterViewController.swift; sourceTree = "<group>"; };
+		5968CD9D2288BFC400915BFF /* TableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
 		599972332287A9A900365857 /* Page1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page1ViewController.swift; sourceTree = "<group>"; };
 		599972352287B6EF00365857 /* Page2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page2ViewController.swift; sourceTree = "<group>"; };
 		599972372287BA4800365857 /* Page3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Page3ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				5999723D2287F08D00365857 /* Page6ViewController.swift */,
 				5999723F2287F0BF00365857 /* Page7ViewController.swift */,
 				599972412287F0D700365857 /* Page8ViewController.swift */,
+				5968CD9B2288BDBB00915BFF /* CharterViewController.swift */,
 				5960007222827FCC00E8282E /* MenuViewController.swift */,
 			);
 			path = Controller;
@@ -152,8 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				5960007A2282801400E8282E /* ArrayExtension.swift */,
-				59A8254F2283CABC0058D2EB /* CustomTableView.swift */,
 				5960009A228283F800E8282E /* ProductCell.swift */,
+				5968CD9D2288BFC400915BFF /* TableModel.swift */,
 				596000782282801400E8282E /* FileHandling.swift */,
 				5960009E228286FE00E8282E /* Product.swift */,
 				596000792282801400E8282E /* MenuOption.swift */,
@@ -176,6 +181,7 @@
 				596000892282804300E8282E /* GridView.swift */,
 				5960008B2282804300E8282E /* ProcessView.swift */,
 				596000872282804200E8282E /* ShapeCell.swift */,
+				59A8254F2283CABC0058D2EB /* CustomTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -258,6 +264,7 @@
 			files = (
 				596000812282801400E8282E /* PDFExtension.swift in Sources */,
 				5960008C2282804300E8282E /* arrow3.swift in Sources */,
+				5968CD9C2288BDBB00915BFF /* CharterViewController.swift in Sources */,
 				599972362287B6EF00365857 /* Page2ViewController.swift in Sources */,
 				5999723C2287EFF000365857 /* Page5ViewController.swift in Sources */,
 				5960007F2282801400E8282E /* MenuOption.swift in Sources */,
@@ -271,6 +278,7 @@
 				5960005F22827F9000E8282E /* AppDelegate.swift in Sources */,
 				5960009B228283F800E8282E /* ProductCell.swift in Sources */,
 				596000922282804300E8282E /* ArrowShape.swift in Sources */,
+				5968CD9E2288BFC400915BFF /* TableModel.swift in Sources */,
 				5960007E2282801400E8282E /* FileHandling.swift in Sources */,
 				5960008D2282804300E8282E /* CircleView.swift in Sources */,
 				599972382287BA4800365857 /* Page3ViewController.swift in Sources */,

@@ -15,7 +15,7 @@ class HomeViewController:  UITabBarController , UIScrollViewDelegate, UIGestureR
     
     // MARK: - Properties
     static var delegate: HomeControllerDelegate?
-
+    static var tableData = allTables()
     
     //variables that falicitate drawing arrows between two pluses(circle view with plus image inside)
     var jsonData : Data?
