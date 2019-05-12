@@ -22,14 +22,14 @@ class LandingPageViewController: UIViewController {
     var createButton : UIButton
     {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "plus"), for: .normal)
+        button.setImage(UIImage(named: "createNew"), for: .normal)
         button.addTarget(self, action: #selector(openNewDoc), for: .touchUpInside)
         return button
     }
     
     var loadButton : UIButton {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "plus"), for: .normal)
+        button.setImage(UIImage(named: "load100"), for: .normal)
         button.addTarget(self, action: #selector(loadExistingDoc), for: .touchUpInside)
         return button
     }
