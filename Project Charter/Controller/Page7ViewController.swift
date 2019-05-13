@@ -16,38 +16,44 @@ class Page7ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     var customTable: CustomTableView!
     var myTable: Table!
     
+    convenience init(_: Int){
+        self.init()
+        updateArrays()
+        customTable = CustomTableView(withTable: myTable, withIndex: 6)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureScrollView()
-        updateArrays()
-        //        updateViews()
-        
-        customTable = CustomTableView(withTable: myTable)
+//        updateArrays()
+//        //        updateViews()
+//
+//        customTable = CustomTableView(withTable: myTable, withIndex: 6)
         customTable.translatesAutoresizingMaskIntoConstraints = false
         customTable.backgroundColor = .clear
         customTable.delegate = self
         scrollView.addSubview(customTable)
         customTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
         customTable.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        customTable.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
+//        customTable.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
         customTable.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         // Do any additional setup after loading the view.
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
-//    override func viewDidLayoutSubviews() {
-//        customTable.layoutIfNeeded()
-//        print("Page view did layout ", customTable.bounds.size)
-//        resizeScrollView()
-//    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLayoutSubviews() {
         customTable.layoutIfNeeded()
-        print("Page view did appear ", customTable.bounds.size)
-//        resizeScrollView()
+        print("Page view did layout ", customTable.bounds.size)
+        resizeScrollView()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        customTable.layoutIfNeeded()
+//        print("Page view did appear ", customTable.bounds.size)
+////        resizeScrollView()
+//    }
 
     override func viewDidDisappear(_ animated: Bool) {
         print("View Disappered")

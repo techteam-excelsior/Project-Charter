@@ -16,22 +16,26 @@ class Page1ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     var customTable: CustomTableView!
     var myTable: Table!
     
-    
+    convenience init(_: Int){
+        self.init()
+        updateArrays()
+        customTable = CustomTableView(withTable: myTable, withIndex: 0)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureScrollView()
-        updateArrays()
-        //        updateViews()
-        
-        customTable = CustomTableView(withTable: myTable)
+//        updateArrays()
+//        //        updateViews()
+//        
+//        customTable = CustomTableView(withTable: myTable, withIndex: 0)
         customTable.translatesAutoresizingMaskIntoConstraints = false
-        customTable.backgroundColor = .clear
+        customTable.backgroundColor = .orange
         customTable.delegate = self
         scrollView.addSubview(customTable)
         customTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
         customTable.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        customTable.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
+//        customTable.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
         customTable.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         // Do any additional setup after loading the view.
         let notificationCenter = NotificationCenter.default
@@ -40,7 +44,7 @@ class Page1ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     
     override func viewDidLayoutSubviews() {
         customTable.layoutIfNeeded()
-        print("Page view did layout ", customTable.bounds.size)
+        print("Page view did layout ", customTable.frame)
         resizeScrollView()
     }
     

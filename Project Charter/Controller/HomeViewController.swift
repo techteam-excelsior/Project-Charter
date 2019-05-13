@@ -33,9 +33,10 @@ class HomeViewController:  UITabBarController , UIScrollViewDelegate, UIGestureR
 
         
         ContainerViewController.menuDelegate = self
-        let Pages = [Page1ViewController(), Page2ViewController(), Page3ViewController(), Page4ViewController(), Page5ViewController(), Page6ViewController(), Page7ViewController(), Page8ViewController() ]
-        let Images = [#imageLiteral(resourceName: "document"), #imageLiteral(resourceName: "businessman"), #imageLiteral(resourceName: "coins"), #imageLiteral(resourceName: "coins"), #imageLiteral(resourceName: "clock"), #imageLiteral(resourceName: "meeting"), #imageLiteral(resourceName: "meeting"), #imageLiteral(resourceName: "meeting")]
-        let Titles = ["Problem", "Manager", "Finance", "Expense", "Schedule", "Supplier", "Internal Team", "Customer"]
+        
+        let Pages = [Page1ViewController(1), Page2ViewController(2), Page3ViewController(3), Page4ViewController(4), Page5ViewController(5), Page6ViewController(6), Page7ViewController(7), Page8ViewController(8), CharterViewController() ]
+        let Images = [#imageLiteral(resourceName: "document"), #imageLiteral(resourceName: "businessman"), #imageLiteral(resourceName: "coins"), #imageLiteral(resourceName: "coins"), #imageLiteral(resourceName: "clock"), #imageLiteral(resourceName: "meeting"), #imageLiteral(resourceName: "meeting"), #imageLiteral(resourceName: "meeting"), #imageLiteral(resourceName: "document")]
+        let Titles = ["Problem", "Manager", "Finance", "Expense", "Schedule", "Supplier", "Internal Team", "Customer", "Charter"]
         for i in Pages.indices{
             Pages[i].tabBarItem = UITabBarItem(title: Titles[i], image: Images[i], tag: i)
         }

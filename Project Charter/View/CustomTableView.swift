@@ -20,12 +20,13 @@ class VerticallyCenteredTextView: UITextView {
 }
 
 
-class CustomTableView: UIView {
+class CustomTableView: UIView, UITextViewDelegate {
 
     private var textArray1 = [VerticallyCenteredTextView]()
     private var textArray2 = [VerticallyCenteredTextView]()
     private var textArray3 = [VerticallyCenteredTextView]()
     private var myTable: Table!
+    var myIndex: Int!
     
     private var latestY: NSLayoutConstraint?
     var addMore : UIButton = {
@@ -47,9 +48,11 @@ class CustomTableView: UIView {
     }
     */
     
-    convenience init(withTable table: Table){
+    convenience init(withTable table: Table, withIndex idx: Int){
         self.init()
         myTable = table
+        myIndex = idx
+        HomeViewController.tableData.setTable(withIndex: myIndex, withTable: myTable)
     }
     
     
@@ -81,6 +84,7 @@ class CustomTableView: UIView {
             text3?.append("")
             myTable.setArray(withIndex: 2, withArray: text3!)
         }
+        HomeViewController.tableData.setTable(withIndex: myIndex, withTable: myTable)
         updateViews()
     }
     
@@ -103,6 +107,7 @@ class CustomTableView: UIView {
                 text1.layer.borderWidth = 2
                 text1.textContainer.maximumNumberOfLines = 3
                 text1.textContainer.lineBreakMode = .byTruncatingTail
+                text1.delegate = self
                 textArray1.append(text1)
                 self.addSubview(text1)
                 
@@ -117,6 +122,7 @@ class CustomTableView: UIView {
                 text2.layer.borderWidth = 2
                 text2.textContainer.maximumNumberOfLines = 3
                 text2.textContainer.lineBreakMode = .byTruncatingTail
+                text2.delegate = self
                 textArray2.append(text2)
                 self.addSubview(text2)
                 
@@ -147,6 +153,7 @@ class CustomTableView: UIView {
                 text1.layer.borderWidth = 2
                 text1.textContainer.maximumNumberOfLines = 3
                 text1.textContainer.lineBreakMode = .byTruncatingTail
+                text1.delegate = self
                 textArray1.append(text1)
                 self.addSubview(text1)
                 
@@ -161,6 +168,7 @@ class CustomTableView: UIView {
                 text2.layer.borderWidth = 2
                 text2.textContainer.maximumNumberOfLines = 3
                 text2.textContainer.lineBreakMode = .byTruncatingTail
+                text2.delegate = self
                 textArray2.append(text2)
                 self.addSubview(text2)
                 
@@ -188,6 +196,7 @@ class CustomTableView: UIView {
                 text1.layer.borderWidth = 2
                 text1.textContainer.maximumNumberOfLines = 3
                 text1.textContainer.lineBreakMode = .byTruncatingTail
+                text1.delegate = self
                 textArray1.append(text1)
                 self.addSubview(text1)
                 
@@ -202,6 +211,7 @@ class CustomTableView: UIView {
                 text2.layer.borderWidth = 2
                 text2.textContainer.maximumNumberOfLines = 3
                 text2.textContainer.lineBreakMode = .byTruncatingTail
+                text2.delegate = self
                 textArray2.append(text2)
                 self.addSubview(text2)
                 
@@ -216,6 +226,7 @@ class CustomTableView: UIView {
                 text3.layer.borderWidth = 2
                 text3.textContainer.maximumNumberOfLines = 3
                 text3.textContainer.lineBreakMode = .byTruncatingTail
+                text3.delegate = self
                 textArray2.append(text3)
                 self.addSubview(text3)
                 
@@ -250,6 +261,7 @@ class CustomTableView: UIView {
                     text1.layer.borderWidth = 2
                     text1.textContainer.maximumNumberOfLines = 3
                     text1.textContainer.lineBreakMode = .byTruncatingTail
+                    text1.delegate = self
                     textArray1.append(text1)
                     self.addSubview(text1)
                     
@@ -264,6 +276,7 @@ class CustomTableView: UIView {
                     text2.layer.borderWidth = 2
                     text2.textContainer.maximumNumberOfLines = 3
                     text2.textContainer.lineBreakMode = .byTruncatingTail
+                    text2.delegate = self
                     textArray2.append(text2)
                     self.addSubview(text2)
                     
@@ -278,6 +291,7 @@ class CustomTableView: UIView {
                     text3.layer.borderWidth = 2
                     text3.textContainer.maximumNumberOfLines = 3
                     text3.textContainer.lineBreakMode = .byTruncatingTail
+                    text3.delegate = self
                     textArray2.append(text3)
                     self.addSubview(text3)
                     
@@ -306,10 +320,33 @@ class CustomTableView: UIView {
         latestY = self.bottomAnchor.constraint(equalTo: textArray1.last!.bottomAnchor, constant: 100)
         latestY!.isActive = true
         self.layoutIfNeeded()
-        delegate.resizeScrollView()
+//        delegate.resizeScrollView()
         
         //        self.scrollView.contentSize = CGSize(width: self.view.bounds.width, height: 100)
         //        mainView.bottomAnchor.constraint(equalTo: textArray1.last!.bottomAnchor, constant: 50).isActive = false
+    }
+    
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("Text View did finish editing")
+        var values0 = [String]()
+        for textView in textArray1{
+            values0.append(textView.text)
+        }
+        myTable.setArray(withIndex: 0, withArray: values0)
+        var values1 = [String]()
+        for textView in textArray2{
+            values1.append(textView.text)
+        }
+        myTable.setArray(withIndex: 1, withArray: values1)
+        if myTable.count == 3{
+            var values2 = [String]()
+            for textView in textArray3{
+                values2.append(textView.text)
+            }
+            myTable.setArray(withIndex: 2, withArray: values2)
+        }
+        HomeViewController.tableData.setTable(withIndex: myIndex, withTable: myTable)
     }
 }
 

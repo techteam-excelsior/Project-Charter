@@ -16,20 +16,26 @@ class Page5ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
     var customTable: CustomTableView!
     var myTable: Table!
     
+    convenience init(_: Int){
+        self.init()
+        updateArrays()
+        customTable = CustomTableView(withTable: myTable, withIndex: 4)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureScrollView()
-        updateArrays()
-        //        updateViews()
-        
-        customTable = CustomTableView(withTable: myTable)
+//        updateArrays()
+//        //        updateViews()
+//
+//        customTable = CustomTableView(withTable: myTable, withIndex: 4)
         customTable.translatesAutoresizingMaskIntoConstraints = false
         customTable.backgroundColor = .clear
         customTable.delegate = self
         scrollView.addSubview(customTable)
         customTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
         customTable.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        customTable.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
+//        customTable.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
         customTable.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         // Do any additional setup after loading the view.
         let notificationCenter = NotificationCenter.default

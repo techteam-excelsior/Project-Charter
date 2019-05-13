@@ -13,7 +13,7 @@ struct allTables{
     var tables: [Table]
     
     init() {
-        tables = []
+        tables = [Table(),Table(),Table(),Table(),Table(),Table(),Table(),Table()]
     }
     
     mutating func setTable(withIndex idx: Int, withTable table: Table){
