@@ -11,7 +11,6 @@ import UIKit
 class VerticallyCenteredTextView: UITextView {
     override var contentSize: CGSize {
         didSet {
-            print("Changed content size of text view")
             var topCorrection = (bounds.size.height - contentSize.height * zoomScale) / 2.0
             topCorrection = max(0, topCorrection)
             contentInset = UIEdgeInsets(top: topCorrection, left: 0, bottom: 0, right: 0)
@@ -48,11 +47,14 @@ class CustomTableView: UIView, UITextViewDelegate {
     }
     */
     
-    convenience init(withTable table: Table, withIndex idx: Int){
+    convenience init(withTable table: Table, withIndex idx: Int, isCharter: Bool = false){
         self.init()
         myTable = table
         myIndex = idx
-        HomeViewController.tableData.setTable(withIndex: myIndex, withTable: myTable)
+        if !isCharter{
+            HomeViewController.tableData.setTable(withIndex: myIndex, withTable: myTable)
+            print("Within Init : ", HomeViewController.tableData.getTable(withIndex: myIndex))
+        }
     }
     
     
@@ -85,6 +87,7 @@ class CustomTableView: UIView, UITextViewDelegate {
             myTable.setArray(withIndex: 2, withArray: text3!)
         }
         HomeViewController.tableData.setTable(withIndex: myIndex, withTable: myTable)
+        print("After adding Row: ", HomeViewController.tableData.getTable(withIndex: myIndex))
         updateViews()
     }
     
@@ -100,7 +103,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text1.translatesAutoresizingMaskIntoConstraints = false
                 text1.text = myTable.getArray(withIndex: 0)![0]
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                text1.layer.cornerRadius = 10
+//                text1.layer.cornerRadius = 10
                 text1.font = .systemFont(ofSize: 18)
 //                text1.isScrollEnabled = false
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -115,7 +118,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text2.translatesAutoresizingMaskIntoConstraints = false
                 text2.text = myTable.getArray(withIndex: 1)![0]
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                text2.layer.cornerRadius = 10
+//                text2.layer.cornerRadius = 10
                 text2.font = .systemFont(ofSize: 18)
 //                text2.isScrollEnabled = false
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -132,7 +135,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text1.heightAnchor.constraint(equalToConstant: 90).isActive = true
                 
                 text2.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
-                text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: 0).isActive = true
+                text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: -2).isActive = true
                 text2.widthAnchor.constraint(equalTo: text1.widthAnchor, constant: -10).isActive = true
                 text2.heightAnchor.constraint(equalToConstant: 90).isActive = true
             }
@@ -146,7 +149,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text1.translatesAutoresizingMaskIntoConstraints = false
                 text1.text = myTable.getArray(withIndex: 0)![base+i]
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                text1.layer.cornerRadius = 10
+//                text1.layer.cornerRadius = 10
                 text1.font = .systemFont(ofSize: 18)
 //                text1.isScrollEnabled = false
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -161,7 +164,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text2.translatesAutoresizingMaskIntoConstraints = false
                 text2.text = myTable.getArray(withIndex: 1)![base+i]
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                text2.layer.cornerRadius = 10
+//                text2.layer.cornerRadius = 10
                 text2.font = .systemFont(ofSize: 18)
 //                text2.isScrollEnabled = false
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -178,7 +181,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text1.heightAnchor.constraint(equalToConstant: 90).isActive = true
                 
                 text2.topAnchor.constraint(equalTo: textArray1[textArray1.count-2].bottomAnchor, constant: 5).isActive = true
-                text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: 0).isActive = true
+                text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: -2).isActive = true
                 text2.widthAnchor.constraint(equalTo: text1.widthAnchor, constant: -10).isActive = true
                 text2.heightAnchor.constraint(equalToConstant: 90).isActive = true
             }
@@ -189,7 +192,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text1.translatesAutoresizingMaskIntoConstraints = false
                 text1.text = myTable.getArray(withIndex: 0)![0]
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                text1.layer.cornerRadius = 10
+//                text1.layer.cornerRadius = 10
                 text1.font = .systemFont(ofSize: 18)
 //                text1.isScrollEnabled = false
                 text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -204,7 +207,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text2.translatesAutoresizingMaskIntoConstraints = false
                 text2.text = myTable.getArray(withIndex: 1)![0]
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                text2.layer.cornerRadius = 10
+//                text2.layer.cornerRadius = 10
                 text2.font = .systemFont(ofSize: 18)
 //                text2.isScrollEnabled = false
                 text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -219,7 +222,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text3.translatesAutoresizingMaskIntoConstraints = false
                 text3.text = myTable.getArray(withIndex: 2)![0]
                 text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                text3.layer.cornerRadius = 10
+//                text3.layer.cornerRadius = 10
                 text3.font = .systemFont(ofSize: 18)
 //                text3.isScrollEnabled = false
                 text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -227,7 +230,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text3.textContainer.maximumNumberOfLines = 3
                 text3.textContainer.lineBreakMode = .byTruncatingTail
                 text3.delegate = self
-                textArray2.append(text3)
+                textArray3.append(text3)
                 self.addSubview(text3)
                 
                 text1.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
@@ -236,12 +239,12 @@ class CustomTableView: UIView, UITextViewDelegate {
                 text1.heightAnchor.constraint(equalToConstant: 90).isActive = true
                 
                 text2.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
-                text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: 0).isActive = true
+                text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: -2).isActive = true
                 text2.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4).isActive = true
                 text2.heightAnchor.constraint(equalToConstant: 90).isActive = true
                 
                 text3.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
-                text3.leftAnchor.constraint(equalTo: text2.rightAnchor, constant: 0).isActive = true
+                text3.leftAnchor.constraint(equalTo: text2.rightAnchor, constant: -2).isActive = true
                 text3.widthAnchor.constraint(equalTo: text2.widthAnchor, constant: -10).isActive = true
                 text3.heightAnchor.constraint(equalToConstant: 90).isActive = true
             }
@@ -254,7 +257,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                     text1.translatesAutoresizingMaskIntoConstraints = false
                     text1.text = myTable.getArray(withIndex: 0)![base+i]
                     text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    text1.layer.cornerRadius = 10
+//                    text1.layer.cornerRadius = 10
                     text1.font = .systemFont(ofSize: 18)
 //                    text1.isScrollEnabled = false
                     text1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -269,7 +272,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                     text2.translatesAutoresizingMaskIntoConstraints = false
                     text2.text = myTable.getArray(withIndex: 1)![base+i]
                     text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    text2.layer.cornerRadius = 10
+//                    text2.layer.cornerRadius = 10
                     text2.font = .systemFont(ofSize: 18)
 //                    text2.isScrollEnabled = false
                     text2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -284,7 +287,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                     text3.translatesAutoresizingMaskIntoConstraints = false
                     text3.text = myTable.getArray(withIndex: 2)![base+i]
                     text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    text3.layer.cornerRadius = 10
+//                    text3.layer.cornerRadius = 10
                     text3.font = .systemFont(ofSize: 18)
 //                    text3.isScrollEnabled = false
                     text3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -292,7 +295,7 @@ class CustomTableView: UIView, UITextViewDelegate {
                     text3.textContainer.maximumNumberOfLines = 3
                     text3.textContainer.lineBreakMode = .byTruncatingTail
                     text3.delegate = self
-                    textArray2.append(text3)
+                    textArray3.append(text3)
                     self.addSubview(text3)
                     
                     text1.topAnchor.constraint(equalTo: textArray1[textArray1.count-2].bottomAnchor, constant: 5).isActive = true
@@ -301,12 +304,12 @@ class CustomTableView: UIView, UITextViewDelegate {
                     text1.heightAnchor.constraint(equalToConstant: 90).isActive = true
                     
                     text2.topAnchor.constraint(equalTo: textArray1[textArray1.count-2].bottomAnchor, constant: 5).isActive = true
-                    text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: 0).isActive = true
+                    text2.leftAnchor.constraint(equalTo: text1.rightAnchor, constant: -2).isActive = true
                     text2.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/4).isActive = true
                     text2.heightAnchor.constraint(equalToConstant: 90).isActive = true
                     
                     text3.topAnchor.constraint(equalTo: textArray1[textArray1.count-2].bottomAnchor, constant: 5).isActive = true
-                    text3.leftAnchor.constraint(equalTo: text2.rightAnchor, constant: 0).isActive = true
+                    text3.leftAnchor.constraint(equalTo: text2.rightAnchor, constant: -2).isActive = true
                     text3.widthAnchor.constraint(equalTo: text2.widthAnchor, constant: -10).isActive = true
                     text3.heightAnchor.constraint(equalToConstant: 90).isActive = true
                 }
@@ -326,9 +329,19 @@ class CustomTableView: UIView, UITextViewDelegate {
         //        mainView.bottomAnchor.constraint(equalTo: textArray1.last!.bottomAnchor, constant: 50).isActive = false
     }
     
+    func changeFont(withSize size: CGFloat){
+        for text in textArray1{
+            text.font = text.font?.withSize(size)
+        }
+        for text in textArray2{
+            text.font = text.font?.withSize(size)
+        }
+        for text in textArray3{
+            text.font = text.font?.withSize(size)
+        }
+    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        print("Text View did finish editing")
         var values0 = [String]()
         for textView in textArray1{
             values0.append(textView.text)

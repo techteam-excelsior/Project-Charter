@@ -65,6 +65,7 @@ class Page3ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
         myTable.setArray(withIndex: 1, withArray: ["", "", "", "", ""])
         myTable.setArray(withIndex: 2, withArray: ["", "", "", "", ""])
         myTable.count = 3
+        print(myTable)
     }
     
     func configureScrollView()

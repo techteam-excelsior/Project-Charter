@@ -30,7 +30,7 @@ class Page1ViewController: UIViewController, UIScrollViewDelegate, UIGestureReco
 //        
 //        customTable = CustomTableView(withTable: myTable, withIndex: 0)
         customTable.translatesAutoresizingMaskIntoConstraints = false
-        customTable.backgroundColor = .orange
+        customTable.backgroundColor = .clear
         customTable.delegate = self
         scrollView.addSubview(customTable)
         customTable.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
